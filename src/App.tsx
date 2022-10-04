@@ -1,12 +1,13 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import './App.css';
+
+import update from 'immutability-helper';
 
 import { IShoppingSale } from './api/structures/shoppings/sales/IShoppingSale';
 
 import { IShoppingSaleUnit } from './api/structures/shoppings/sales/IShoppingSaleUnit';
 import { IShoppingSaleUnitOption } from './api/structures/shoppings/sales/IShoppingSaleUnitOption';
-
-import { Button, Dropdown } from './components';
+import { Button, Candidate, Dropdown } from './components';
 interface Props {
   sale: IShoppingSale;
 }
@@ -17,19 +18,38 @@ interface ISaleResult {
 }
 
 function App({ sale }: Props) {
-  console.log({ sale });
   const [shoppingResult, setShoppingResult] = useState<
-    IShoppingSaleUnitOption[]
+    {
+      unitId: string;
+      cadidateIds: string[];
+    }[]
   >([]);
   const [options, setOptions] = useState<IShoppingSaleUnitOption[][]>([]);
 
+  const addShoppingResult = useCallback(
+    (unitId: string, cadidateIds: string[]) => {
+      setShoppingResult(
+        update(shoppingResult, {
+          $push: [
+            {
+              unitId,
+              cadidateIds,
+            },
+          ],
+        })
+      );
+    },
+    [shoppingResult]
+  );
+
   useEffect(() => {
+    console.log({ sale });
     setOptions(sale.units.map((unit) => unit.options));
   }, [sale]);
 
-  useEffect(() => {
-    console.log(options[0]);
-  }, [options]);
+  // useEffect(() => {
+  //   console.log('1111', shoppingResult);
+  // }, [shoppingResult]);
 
   return (
     <div className='App'>
@@ -37,23 +57,13 @@ function App({ sale }: Props) {
         {sale.units.map((unit, index) => {
           const { id, product } = unit;
           return (
-            <div key={id}>
-              <span>{product.name}</span>
-              <>
-                {options.length &&
-                  options[index].map((option) => (
-                    <Dropdown
-                      key={option.id}
-                      name={option.name}
-                      value={option.candidates[0]}
-                      candidates={option.candidates}
-                      onUpdateBlock={(data) => {
-                        console.log({ data });
-                      }}
-                    />
-                  ))}
-              </>
-            </div>
+            <Candidate
+              key={id}
+              unit={unit}
+              onAddShopping={(unitSelectOptions) => {
+                console.log({ unitSelectOptions });
+              }}
+            />
           );
         })}
         <div className='flexContainer'>

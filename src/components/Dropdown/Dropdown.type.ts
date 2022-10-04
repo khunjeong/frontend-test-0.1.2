@@ -2,7 +2,7 @@ import { IShoppingSaleUnitOptionCandidate } from '../../api/structures/shoppings
 
 export interface IDropdownProps {
   name: string;
-  value: IShoppingSaleUnitOptionCandidate;
+  value?: IShoppingSaleUnitOptionCandidate;
   candidates: IShoppingSaleUnitOptionCandidate[];
   onUpdateBlock: (data: IShoppingSaleUnitOptionCandidate) => void;
 }

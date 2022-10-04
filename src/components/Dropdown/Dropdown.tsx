@@ -2,8 +2,6 @@ import { useState } from 'react';
 
 import * as S from './Dropdown.styled';
 
-import { IShoppingSaleUnitOption } from '../../api/structures/shoppings/sales/IShoppingSaleUnitOption';
-import { IShoppingSaleUnitOptionCandidate } from '../../api/structures/shoppings/sales/IShoppingSaleUnitOptionCandidate';
 import { IDropdownProps } from './Dropdown.type';
 
 const Dropdown = (props: IDropdownProps) => {
@@ -12,7 +10,7 @@ const Dropdown = (props: IDropdownProps) => {
 
   return (
     <S.DropdownWrapper onClick={() => setIsOpen((isOpen) => !isOpen)}>
-      <span>{`${name} / ${value.name}`} </span>
+      <span>{`${name} / ${value ? value.name : ''}`} </span>
       {isOpen && (
         <S.ItemsWrapper>
           {candidates.map((candidate) => {
