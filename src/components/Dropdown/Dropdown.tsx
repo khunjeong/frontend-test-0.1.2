@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import { ReactComponent as ArrowDownIcon } from '../../assets/icons/arrowDown.svg';
+
 import * as S from './Dropdown.styled';
 
 import { IDropdownProps } from './Dropdown.type';
@@ -11,6 +13,7 @@ const Dropdown = (props: IDropdownProps) => {
   return (
     <S.DropdownWrapper onClick={() => setIsOpen((isOpen) => !isOpen)}>
       <span>{`${name} / ${value ? value.name : ''}`} </span>
+      <ArrowDownIcon />
       {isOpen && (
         <S.ItemsWrapper>
           {candidates.map((candidate) => {

@@ -4,7 +4,7 @@ export const TotalPriceWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 0.5rem;
+  margin-top: 1rem;
   padding: 0.5rem;
   border-top: 1px solid var(--gray);
 `;

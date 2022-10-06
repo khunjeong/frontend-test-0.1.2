@@ -2,9 +2,8 @@ import styled from 'styled-components';
 
 export const ResultStockWrapper = styled.div`
   width: 100%;
-  margin-bottom: 0.5rem;
+  margin: 0.5rem 0;
   padding: 1rem;
-  gap: 0.5rem 0.5rem;
   background: var(--lightGray);
   border: none;
   border-radius: 5px;

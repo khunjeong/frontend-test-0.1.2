@@ -69,7 +69,9 @@ const Candidate = ({
 
   return (
     <S.CandidateWrapper>
-      <span>{`${unit.name}`}</span>
+      <S.UnitNameSpan>{`${unit.name} ${
+        unit.required ? '*' : ''
+      }`}</S.UnitNameSpan>
       {unit.options.map((option, index) => {
         const selectIndex = selectCandidates.findIndex(
           (candidate) => candidate.optionId === option.id

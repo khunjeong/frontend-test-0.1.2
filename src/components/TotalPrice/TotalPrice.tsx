@@ -1,5 +1,3 @@
-import { FlexWrapper } from '../Wrapper';
-
 import * as S from './TotalPrice.styled';
 
 import { ITotalPriceProps } from './TotalPrice.type';

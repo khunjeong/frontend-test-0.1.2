@@ -7,7 +7,13 @@ import { IShoppingSale } from './api/structures/shoppings/sales/IShoppingSale';
 
 import { IShoppingSaleUnitStock } from './api/structures/shoppings/sales/IShoppingSaleUnitStock';
 
-import { Button, Candidate, ResultStock, TotalPrice } from './components';
+import {
+  Button,
+  Candidate,
+  FlexWrapper,
+  ResultStock,
+  TotalPrice,
+} from './components';
 
 interface Props {
   sale: IShoppingSale;
@@ -94,7 +100,7 @@ function App({ sale }: Props) {
 
   return (
     <div className='App'>
-      <div className={'container'} style={{ width: 500 }}>
+      <div className={'container'} style={{ width: 390 }}>
         {sale.units.map((unit) => (
           <Candidate
             key={unit.id}
@@ -113,15 +119,18 @@ function App({ sale }: Props) {
             />
           );
         })}
-        <div className='flexContainer'>
+        {resultStocks.length ? (
+          <TotalPrice
+            totalPrice={resultStocks.reduce((result, stock) => {
+              return result + stock.price.nominal * stock.inventory.reserve;
+            }, 0)}
+          />
+        ) : null}
+
+        <FlexWrapper style={{ marginTop: '1rem', gap: '1rem' }}>
           <Button>장바구니</Button>
-          <Button>바로구매</Button>
-        </div>
-        <TotalPrice
-          totalPrice={resultStocks.reduce((result, stock) => {
-            return result + stock.price.nominal * stock.inventory.reserve;
-          }, 0)}
-        />
+          <Button btnType='solid'>바로구매</Button>
+        </FlexWrapper>
       </div>
     </div>
   );

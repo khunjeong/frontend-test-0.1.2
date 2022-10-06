@@ -1,10 +1,14 @@
-import React, { HTMLAttributes } from 'react';
+import { HTMLAttributes } from 'react';
 import * as S from './Button.styled';
 
-const Button = (props: HTMLAttributes<HTMLButtonElement>) => {
-  const { children, ...rest } = props;
+const Button = (props: S.IStyleProps & HTMLAttributes<HTMLButtonElement>) => {
+  const { btnType, children, ...rest } = props;
 
-  return <S.Button {...rest}>{children}</S.Button>;
+  return (
+    <S.Button btnType={btnType || 'default'} {...rest}>
+      {children}
+    </S.Button>
+  );
 };
 
 export default Button;
