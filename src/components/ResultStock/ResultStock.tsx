@@ -3,10 +3,10 @@ import { ReactComponent as PlusIcon } from '../../assets/icons/plus.svg';
 
 import * as S from './ResultStock.styled';
 
-import { IDropdownProps } from './ResultStock.type';
+import { IResultStockProps } from './ResultStock.type';
 
-const ResultStock = (props: IDropdownProps) => {
-  const { count, stock, onDelete, onMinus, onPlus } = props;
+const ResultStock = (props: IResultStockProps) => {
+  const { stock, onDelete, onMinus, onPlus } = props;
 
   return (
     <S.ResultStockWrapper>
@@ -18,11 +18,11 @@ const ResultStock = (props: IDropdownProps) => {
       </S.ResultStockRow>
       <S.ResultStockRow>
         <S.FlexRow>
-          <S.IconWrapper onClick={() => onMinus(stock)}>
+          <S.IconWrapper onClick={onMinus}>
             <PlusIcon />
           </S.IconWrapper>
           {stock.inventory.reserve}
-          <S.IconWrapper onClick={() => onPlus(stock)}>
+          <S.IconWrapper onClick={onPlus}>
             <PlusIcon />
           </S.IconWrapper>
         </S.FlexRow>

@@ -106,9 +106,6 @@ function App({ sale }: Props) {
           return (
             <ResultStock
               key={stock.id}
-              count={
-                resultStocks.filter((element) => element.id === stock.id).length
-              }
               stock={stock}
               onDelete={onStockDelete}
               onMinus={() => onStockMinus(stock, index)}
