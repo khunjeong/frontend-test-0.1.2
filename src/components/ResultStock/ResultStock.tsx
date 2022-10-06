@@ -26,7 +26,9 @@ const ResultStock = (props: IResultStockProps) => {
             <PlusIcon />
           </S.IconWrapper>
         </S.FlexRow>
-        <S.PriceSpan>{stock.price.real} 원</S.PriceSpan>
+        <div>
+          <S.PriceSpan>{stock.price.real.toLocaleString()} </S.PriceSpan>원
+        </div>
       </S.ResultStockRow>
     </S.ResultStockWrapper>
   );

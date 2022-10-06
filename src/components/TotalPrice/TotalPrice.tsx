@@ -1,3 +1,5 @@
+import { FlexWrapper } from '../Wrapper';
+
 import * as S from './TotalPrice.styled';
 
 import { ITotalPriceProps } from './TotalPrice.type';
@@ -8,7 +10,9 @@ const TotalPrice = (props: ITotalPriceProps) => {
   return (
     <S.TotalPriceWrapper>
       <S.TotalPriceTitle>주문금액</S.TotalPriceTitle>
-      <S.TotalPriceSpan>{totalPrice}</S.TotalPriceSpan>
+      <div style={{ fontWeight: 500 }}>
+        <S.TotalPriceSpan>{totalPrice.toLocaleString()}</S.TotalPriceSpan>원
+      </div>
     </S.TotalPriceWrapper>
   );
 };

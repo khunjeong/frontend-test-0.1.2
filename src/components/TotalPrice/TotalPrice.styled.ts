@@ -16,6 +16,7 @@ export const TotalPriceTitle = styled.span`
 `;
 
 export const TotalPriceSpan = styled.span`
+  margin-right: 1rem;
   font-size: 24px;
   font-weight: 700;
   color: var(--black);
