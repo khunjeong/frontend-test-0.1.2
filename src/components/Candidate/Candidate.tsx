@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import update from 'immutability-helper';
 
 import { Dropdown } from '../../components';
 
 import { IShoppingSaleUnit } from '../../api/structures/shoppings/sales/IShoppingSaleUnit';
-import { IShoppingSaleUnitOption } from '../../api/structures/shoppings/sales/IShoppingSaleUnitOption';
 import { IShoppingSaleUnitOptionCandidate } from '../../api/structures/shoppings/sales/IShoppingSaleUnitOptionCandidate';
 import { IShoppingSaleUnitStock } from '../../api/structures/shoppings/sales/IShoppingSaleUnitStock';
 
@@ -19,19 +18,54 @@ const Candidate = ({
   onAddShopping,
 }: {
   unit: IShoppingSaleUnit;
-  onAddShopping: (
-    unitSelectOptions: IShoppingSaleUnitOptionCandidate[]
-  ) => void;
+  onAddShopping: (unitStock: IShoppingSaleUnitStock) => void;
 }) => {
   const [selectCandidates, setSelectCandidates] = useState<ICandidatesResult[]>(
     []
   );
+  const stockElements = useMemo(
+    () => unit.stocks.map((stock) => stock.elements),
+    [unit]
+  );
 
   useEffect(() => {
-    if (unit.options.length === selectCandidates.length) {
-      onAddShopping(selectCandidates);
+    if (
+      stockElements.length &&
+      unit.options.length === selectCandidates.length
+    ) {
+      const stockIndex = stockElements.reduce(
+        (result: number, elements, index) => {
+          const jsonSelectCandidates = selectCandidates.reduce(
+            (result: string[], candidate) => {
+              result.push(
+                JSON.stringify({
+                  option_id: candidate.optionId,
+                  candidate_id: candidate.id,
+                })
+              );
+              return result;
+            },
+            []
+          );
+          const jsonElements = elements.map((element) =>
+            JSON.stringify(element)
+          );
+          const filterStock = jsonSelectCandidates.filter((candidate) =>
+            jsonElements.includes(candidate)
+          );
+          if (filterStock.length === selectCandidates.length) {
+            result = index;
+          }
+
+          return result;
+        },
+        -1
+      );
+      if (stockIndex >= 0) {
+        onAddShopping(unit.stocks[stockIndex]);
+      }
     }
-  }, [selectCandidates]);
+  }, [stockElements, selectCandidates]);
 
   return (
     <S.CandidateWrapper>

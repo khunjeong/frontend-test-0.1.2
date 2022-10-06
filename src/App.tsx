@@ -7,49 +7,48 @@ import { IShoppingSale } from './api/structures/shoppings/sales/IShoppingSale';
 
 import { IShoppingSaleUnit } from './api/structures/shoppings/sales/IShoppingSaleUnit';
 import { IShoppingSaleUnitOption } from './api/structures/shoppings/sales/IShoppingSaleUnitOption';
-import { Button, Candidate, Dropdown } from './components';
+import { IShoppingSaleUnitStock } from './api/structures/shoppings/sales/IShoppingSaleUnitStock';
+
+import { Button, Candidate } from './components';
+
 interface Props {
   sale: IShoppingSale;
 }
 
-interface ISaleResult {
-  productName: string;
-  unitOption: IShoppingSaleUnitOption[];
-}
-
 function App({ sale }: Props) {
   const [shoppingResult, setShoppingResult] = useState<
-    {
-      unitId: string;
-      cadidateIds: string[];
-    }[]
+    IShoppingSaleUnitStock[]
   >([]);
-  const [options, setOptions] = useState<IShoppingSaleUnitOption[][]>([]);
 
   const addShoppingResult = useCallback(
-    (unitId: string, cadidateIds: string[]) => {
-      setShoppingResult(
-        update(shoppingResult, {
-          $push: [
-            {
-              unitId,
-              cadidateIds,
-            },
-          ],
-        })
+    (unitStock: IShoppingSaleUnitStock) => {
+      const findShoppingIndex = shoppingResult.findIndex(
+        (element) => element.id === unitStock.id
       );
+      if (findShoppingIndex >= 0) {
+        // setShoppingResult(
+        //   update(shoppingResult, {
+        //     $splice: [[findShoppingIndex, 1]],
+        //   })
+        // );
+        // setShoppingResult([...shoppingResult, unitStock]);
+        window.alert('이미 포함되어 있는 항목입니다.');
+      } else {
+        setShoppingResult([...shoppingResult, unitStock]);
+      }
     },
     [shoppingResult]
   );
 
   useEffect(() => {
-    console.log({ sale });
-    setOptions(sale.units.map((unit) => unit.options));
+    // console.log({ sale });
   }, [sale]);
 
-  // useEffect(() => {
-  //   console.log('1111', shoppingResult);
-  // }, [shoppingResult]);
+  useEffect(() => {
+    if (shoppingResult.length) {
+      console.log(shoppingResult);
+    }
+  }, [shoppingResult]);
 
   return (
     <div className='App'>
@@ -60,9 +59,7 @@ function App({ sale }: Props) {
             <Candidate
               key={id}
               unit={unit}
-              onAddShopping={(unitSelectOptions) => {
-                console.log({ unitSelectOptions });
-              }}
+              onAddShopping={(unitStock) => addShoppingResult(unitStock)}
             />
           );
         })}
