@@ -4,22 +4,12 @@ import update from 'immutability-helper';
 
 import { Dropdown } from '../../components';
 
-import { IShoppingSaleUnit } from '../../api/structures/shoppings/sales/IShoppingSaleUnit';
-import { IShoppingSaleUnitOptionCandidate } from '../../api/structures/shoppings/sales/IShoppingSaleUnitOptionCandidate';
-import { IShoppingSaleUnitStock } from '../../api/structures/shoppings/sales/IShoppingSaleUnitStock';
-
 import * as S from './Candidate.styled';
 
-interface ICandidatesResult extends IShoppingSaleUnitOptionCandidate {
-  optionId: string;
-}
-const Candidate = ({
-  unit,
-  onAddShopping,
-}: {
-  unit: IShoppingSaleUnit;
-  onAddShopping: (unitStock: IShoppingSaleUnitStock) => void;
-}) => {
+import { ICandidateProps, ICandidatesResult } from './Candidate.type';
+
+const Candidate = (props: ICandidateProps) => {
+  const { unit, onAddShopping } = props;
   const [selectCandidates, setSelectCandidates] = useState<ICandidatesResult[]>(
     []
   );

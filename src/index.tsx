@@ -11,7 +11,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <App sale={MACBOOK_2020_PRO_13} />
+    <App />
   </React.StrictMode>
 );
 
