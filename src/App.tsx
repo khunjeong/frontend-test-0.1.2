@@ -7,7 +7,7 @@ import { IShoppingSale } from './api/structures/shoppings/sales/IShoppingSale';
 
 import { IShoppingSaleUnitStock } from './api/structures/shoppings/sales/IShoppingSaleUnitStock';
 
-import { Button, Candidate, ResultStock } from './components';
+import { Button, Candidate, ResultStock, TotalPrice } from './components';
 
 interface Props {
   sale: IShoppingSale;
@@ -120,6 +120,11 @@ function App({ sale }: Props) {
           <Button>장바구니</Button>
           <Button>바로구매</Button>
         </div>
+        <TotalPrice
+          totalPrice={resultStocks.reduce((result, stock) => {
+            return result + stock.price.nominal * stock.inventory.reserve;
+          }, 0)}
+        />
       </div>
     </div>
   );
