@@ -7,9 +7,12 @@
 
 :root {
   --black: #222327;
-  --green: #29fd53;
+  --green: #4f9579;
+  --teal: #20c997;
+  --cyan: #17a2b8;
   --white: #ffffff;
-  --gray: #c4c4c4;
+  --gray: #6c757d;
+  --darkGray: #343a40;
   --lightGray: #efefef;
 }
 
@@ -19,10 +22,4 @@
   align-items: center;
   width: 100vw;
   height: 100vh;
-}
-
-.container {
-  padding: 20px;
-  border: 1px solid var(--gray);
-  border-radius: 5px;
 }
