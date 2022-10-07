@@ -11,11 +11,10 @@ const buttonType = {
     border: none;
 
     &:hover {
-      background: var(--gray);
-      border: none;
+      opacity: 0.5;
       box-shadow: none;
       outline: none;
-      color: var(--green);
+      color: var(--white);
     }
   `,
   default: css`
@@ -24,11 +23,11 @@ const buttonType = {
     border: 1px solid var(--gray);
 
     &:hover {
-      background: var(--green);
-      border: none;
+      background: var(--lightGray);
+      border: 1px solid var(--darkGray);
       box-shadow: none;
       outline: none;
-      color: var(--white);
+      color: var(--gray);
     }
   `,
 };
